@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset = "UTF-8">
+        <title>JS Drum Kit </title>
+        <link rel = "stylesheet" href ="style.css">
+    </head>
+    <body>
+    
+        <div class = "keys">
+            <div data-key ="65" class = "key">
+                <kbd>A</kbd>
+                <span class = "sound">HiHat</span>
+            </div>
+            <div data-key ="83" class="key">
+                <kbd>S</kbd>
+                <span class="sound">Noise</span>
+            </div>
+            <div data-key="68" class="key">
+                <kbd>D</kbd>
+                <span class="sound">Guitar</span>
+            </div>
+            <div data-key="70" class="key">
+                <kbd>F</kbd>
+                <span class="sound">Bass</span>
+            </div>
+            <div data-key="71" class="key">
+                <kbd>G</kbd>
+                <span class="sound">Crotales</span>
+            </div>
+            <div data-key="72" class="key">
+                <kbd>H</kbd>
+                <span class="sound">Drum</span>
+            </div>
+            <div data-key="74" class="key">
+                <kbd>J</kbd>
+                <span class="sound">Cymbal</span>
+            </div>
+            <div data-key="75" class="key">
+                <kbd>K</kbd>
+                <span class="sound">Snare</span>
+            </div>
+            <div data-key="76" class="key">
+                <kbd>L</kbd>
+                <span class="sound">Electro</span>
+            </div>
+        </div>
+        <audio data-key="65" src="sounds/Closed-Hi-Hat-2.wav"></audio>
+        <audio data-key="83" src="sounds/8-Bit-Noise-1.wav"></audio>
+        <audio data-key="68" src="sounds/Alesis-Fusion-Clean-Guitar-C3.wav"></audio>
+        <audio data-key="70" src="sounds/Alesis-Fusion-Fretless-Bass-C3.wav"></audio>
+        <audio data-key="71" src="sounds/Alesis-Sanctuary-QCard-Crotales-C6.wav"></audio>
+        <audio data-key="72" src="sounds/Bass-Drum-1.wav"></audio>
+        <audio data-key="74" src="sounds/Crash-Cymbal-1.wav"></audio>
+        <audio data-key="75" src="sounds/E-Mu-Proteus-FX-Wacky-Snare.wav"></audio>
+        <audio data-key="76" src="sounds/Electro-Tom.wav"></audio>
+
+
+        <script>
+            function removeTransition(e) {
+                if(e.propertyName !== 'transform')return;
+                e.target.classList.remove('playing');
+            }
+
+            function playSound(e) {
+                const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+                const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+                if(!audio) return;
+
+                key.classList.add('playing');
+                audio.currentTime = 0;
+                audio.play();
+
+            }
+
+            const keys =Array.from(document.querySelectorAll('.key'));
+            keys.forEach(key => key.addEventListener('transitionend',removeTransition));
+            window.addEventListener('keydown',playSound);
+
+         </script>
+    </body>
+</html>
+
+
+
